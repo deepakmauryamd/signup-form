@@ -12,7 +12,7 @@ const Form = () => {
   const handleInput = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -30,53 +30,62 @@ const Form = () => {
     }
   };
 
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const error = document.getElementById("error");
-    
-    if (state.firstName !== "" && 
-        state.lastName!=="" &&
-        state.email !== "" && isEmailValid() &&
-        state.password !== "") 
-      {
-        error.innerText = "";
-        const email_error = document.getElementById("email-error");
 
-        const validateEmailUrl = `https://api.raisely.com/v3/check-user`;
-        const signupUrl = `https://api.raisely.com/v3/signup`;
+    if (
+      state.firstName !== "" &&
+      state.lastName !== "" &&
+      state.email !== "" &&
+      isEmailValid() &&
+      state.password !== ""
+    ) {
+      error.innerText = "";
+      const email_error = document.getElementById("email-error");
 
-        const validateEmailData = {
-            "campaignUuid": "46aa3270-d2ee-11ea-a9f0-e9a68ccff42a",
-            "data": {
-             "email": state.email,
-            }
+      const validateEmailUrl = `https://api.raisely.com/v3/check-user`;
+      const signupUrl = `https://api.raisely.com/v3/signup`;
+
+      const validateEmailRequestData = {
+        campaignUuid: "46aa3270-d2ee-11ea-a9f0-e9a68ccff42a",
+        data: {
+          email: state.email
         }
+      };
 
-        const requestData = {
-          "campaignUuid": "46aa3270-d2ee-11ea-a9f0-e9a68ccff42a",
-          "data": {
-           "firstName": state.firstName,
-           "lastName": state.lastName,
-           "email": state.email,
-           "password": state.password
-          }
+      const requestData = {
+        campaignUuid: "46aa3270-d2ee-11ea-a9f0-e9a68ccff42a",
+        data: {
+          firstName: state.firstName,
+          lastName: state.lastName,
+          email: state.email,
+          password: state.password
         }
+      };
 
-        const validateEmaildata = await axios.post(validateEmailUrl, validateEmailData);
-        if(validateEmaildata.data.data.status === 'Ok')
-        {
-            email_error.innerText = '';
-            const result = await axios.post(signupUrl, requestData);
+      const validateEmaildata = await axios.post(
+        validateEmailUrl,
+        validateEmailRequestData
+      );
+
+      console.log(validateEmaildata);
+
+      if (validateEmaildata.data.data.status === "OK") {
+        email_error.innerText = "";
+        await axios
+          .post(signupUrl, requestData)
+          .then((result) => {
             console.log(result);
-        }else if(validateEmaildata.data.data.status === 'EXISTS'){
-            email_error.innerText = "Email already exists";
-        }else{
-            email_error.innerText = '';
-        }
-    }
-    else{
+          })
+          .then((error) => {
+            console.log(error);
+          });
+      } else if (validateEmaildata.data.data.status === "EXISTS") {
+        email_error.innerText = "Email already exists";
+      }
+    } else {
       error.innerText = "All fields are required";
     }
   };
