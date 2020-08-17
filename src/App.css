@@ -1,38 +1,69 @@
 .App {
+  font-family: sans-serif;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 2em 4em;
+  color: #000;
+  border-radius: 100px 20px 20px 20px;
+  -webkit-box-shadow: -1px 6px 46px -25px rgba(0, 0, 0, 0.39);
+  -moz-box-shadow: -1px 6px 46px -25px rgba(0, 0, 0, 0.39);
+  box-shadow: -1px 6px 46px -25px rgba(0, 0, 0, 0.39);
+}
+
+h2 {
+  padding: 0 0 0.5em 0;
+  margin: 0;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.form-item {
+  padding: 0.5em 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.form-lable {
+  display: block;
+  padding: 0.4em 0;
+  letter-spacing: 1.5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.form-input {
+  border: 2px solid silver;
+  padding: 0.5em 0.45em;
+  border-radius: 5px;
+  font-size: 1.2rem;
 }
 
-.App-link {
-  color: #61dafb;
+.form-input:active,
+.form-input:focus {
+  border: 2px solid black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#error, #email-error{
+  display: block;
+  color:red;
 }
+
+.form-btn {
+  margin-top: 1.5em;
+  padding: 0.5em 2em;
+  width: 100%;
+  background: #890fb9;
+  border: 0;
+  font-size: 1.2rem;
+  color: #fff;
+  border-radius: 5px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.form-btn:hover {
+  background: #7a10a5;
+}
+
+
